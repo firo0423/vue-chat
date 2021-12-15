@@ -20,6 +20,7 @@ export default {
   border-top: solid 1px #ddd;
 }
 textarea {
+  font-size: 15px;
   padding: 10px;
   width: 100%;
   height: 100%;
