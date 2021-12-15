@@ -28,8 +28,9 @@ export default {
 </script>
 
 <style scoped>
-#card {
-  padding: 12px;
+.user {
+  padding: 10px;
+  box-sizing: border-box;
 }
 .avatar {
   width: 40px;
@@ -46,7 +47,7 @@ export default {
   background: #26292e;
   height: 30px;
   line-height: 30px;
-  padding: 0 10px;
+  padding: 0 6px;
   border: 1px solid #3a3a3a;
   border-radius: 4px;
   outline: none; /*鼠标点击后不会出现蓝色边框*/

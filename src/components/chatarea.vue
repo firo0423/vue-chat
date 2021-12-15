@@ -1,13 +1,17 @@
 <template>
-  <div></div>
+  <div class="chatarea"></div>
 </template>
 
 <script>
 export default {
-name:"chatarea"
-}
+  name: "chatarea",
+};
 </script>
 
-<style>
-
+<style scoped>
+.chatarea {
+  padding: 15px;
+  max-height: 68%;
+  overflow-y: scroll;
+}
 </style>
