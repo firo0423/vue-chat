@@ -1,5 +1,5 @@
 <template>
-  <div class="chatarea">
+  <div class="chatarea" v-scroll-bottom="sessions">
     <!-- v-for 的优先度比 v-if高所以不能一起使用 -->
     <ul
       v-for="item in sessions"
@@ -23,14 +23,44 @@
 import { mapState } from "vuex";
 export default {
   name: "chatarea",
+  data() {
+    return {
+      img: require("../assets/1.jpg"),
+    };
+  },
   computed: mapState(["sessions", "currentSessionId"]),
+  filters: {
+    time(date) {
+      if (date) {
+        date = new Date(date);
+      }
+      return `${date.getHours()}:${date.getMinutes()}`;
+    },
+  },
+  directives: {
+//     this.$nextTick(() => {
+//    setTimeout(() => {
+//       const textarea = document.getElementById('scroll_text');
+//       textarea.scrollTop = textarea.scrollHeight;
+//    }, 13)
+// })
+
+    /*这个是vue的自定义指令,官方文档有详细说明*/
+    // 发送消息后滚动到底部,这里无法使用原作者的方法，也未找到合理的方法解决，暂用setTimeout的方法模拟
+    "scroll-bottom"(el) {
+      // console.log(el.scrollTop);
+      setTimeout(function () {
+        el.scrollTop+=9999;
+      },1)
+    },
+  },
 };
 </script>
 
 <style scoped>
 .chatarea {
   padding: 15px;
-  max-height: 68%;
+  height: 65%;
   overflow-y: scroll;
 }
 .chatarea ul {
@@ -45,8 +75,8 @@ export default {
 }
 .chatarea .time span {
   display: inline-block;
-  padding: 0 18px;
-  font-size: 12px;
+  padding: 3px 18px;
+  font-size: 14px;
   color: #fff;
   background-color: #dcdcdc;
   border-radius: 2px;
@@ -81,11 +111,11 @@ export default {
   height: 30px;
 }
 .self .text {
-  display: inline-block;
   padding: 0 10px;
   max-width: 80%;
   background-color: #b2e281;
   border-radius: 4px;
   line-height: 30px;
+  float: right;
 }
 </style>

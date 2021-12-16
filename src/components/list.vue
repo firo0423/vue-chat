@@ -1,7 +1,12 @@
 <template>
   <div id="list">
     <ul>
-      <li v-for="item in sessions" :key="item.user.id" :class="listClass">
+      <li
+        v-for="item in sessions"
+        :key="item.user.id"
+        :class="{ active: item.id === currentSessionId }"
+        @click="changeCurrentSessionId(item.id)"
+      >
         <img class="avatar" :src="item.user.img" :alt="item.user.name" />
         <p class="name">{{ item.user.name }}</p>
       </li>
@@ -15,9 +20,12 @@ export default {
   computed: mapState(["sessions", "currentSessionId"]),
   name: "list",
   data() {
-    return {
-      listClass:''
-    }
+    return {};
+  },
+  methods: {
+    changeCurrentSessionId: function (id) {
+      this.$store.commit("changeCurrentSessionId", id);
+    },
   },
 };
 </script>
@@ -31,7 +39,7 @@ export default {
   margin-right: 5px;
 }
 #list li:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 /* 选中样式 */
 li.active {

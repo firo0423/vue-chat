@@ -10,6 +10,7 @@ export default new Vuex.Store({
         id: 1,
         user: {
           name: "示例介绍",
+          
           img: require("../assets/2.png"),
         },
         messages: [
@@ -32,6 +33,7 @@ export default new Vuex.Store({
         id: 2,
         user: {
           name: "webpack",
+          
           img: require("../assets/3.jpg"),
         },
         messages: [
@@ -43,8 +45,21 @@ export default new Vuex.Store({
       },
     ],
     currentSessionId: 1,
+    
   },
-  mutations: {},
+  mutations: {
+    changeCurrentSessionId(state, id){
+      state.currentSessionId = id
+    },
+    sendMessage(state,message){
+      console.log('vuex 接收到了'+message);
+      state.sessions[state.currentSessionId - 1].messages.push({
+        content: message,
+        date: new Date(),
+        self: true,
+      });
+    }
+  },
   actions: {},
   modules: {},
 });
