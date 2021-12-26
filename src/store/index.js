@@ -10,7 +10,7 @@ export default new Vuex.Store({
         id: 1,
         user: {
           name: "示例介绍",
-          
+
           img: require("../assets/2.png"),
         },
         messages: [
@@ -33,7 +33,7 @@ export default new Vuex.Store({
         id: 2,
         user: {
           name: "webpack",
-          
+
           img: require("../assets/3.jpg"),
         },
         messages: [
@@ -45,21 +45,46 @@ export default new Vuex.Store({
       },
     ],
     currentSessionId: 1,
-    
   },
   mutations: {
-    changeCurrentSessionId(state, id){
-      state.currentSessionId = id
+    changeCurrentSessionId(state, id) {
+      state.currentSessionId = id;
     },
-    sendMessage(state,message){
-      console.log('vuex 接收到了'+message);
+    sendMessage(state, message) {
+      console.log("vuex 接收到了" + message);
       state.sessions[state.currentSessionId - 1].messages.push({
         content: message,
         date: new Date(),
         self: true,
       });
-    }
+    },
   },
   actions: {},
   modules: {},
 });
+
+// 下面写一点模块化vuex的写法
+// const 1xxxx = {
+//   state:{},
+//   mutations:{},
+//   actions: {},
+//   modules: {},
+// }
+
+// const 2xxxx={
+//   state:{},
+//   mutations:{},
+//   actions: {},
+//   modules: {},
+// }
+// export default new Vuex.Store(
+//   {
+//     modules:{
+//       a:1xxxx,
+//       b:2xxxxx
+//     }
+//   }
+// )
+
+// 注意: 当使用 这种方法时候 map方法要多一层关系 
+// 比如以前是 person 现在就是 1xxxx.person 因为暴露的模块就那两个

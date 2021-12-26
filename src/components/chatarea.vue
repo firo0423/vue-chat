@@ -29,6 +29,11 @@ export default {
     };
   },
   computed: mapState(["sessions", "currentSessionId"]),
+
+  // computed: mapState(["sessions", "currentSessionId"]),
+  // 如果要用computed对象 加三个点 表示 把对象里面的数据展开到新对象里面
+  // computed: {...mapState(["sessions", "currentSessionId"])},
+  // 同理还有mapaction mapmutation
   filters: {
     time(date) {
       if (date) {
