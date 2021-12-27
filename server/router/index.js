@@ -1,7 +1,6 @@
 const dbserver = require('../dao/dbserver')
 
 module.exports = function(app){
-    app.get('/test',(req,res)=>{
-        dbserver.findUser(res)
-    })
-} 
+    app.post('/test', dbserver.buildUser)
+    app.post('/judge',dbserver.judgeValue)
+}   
