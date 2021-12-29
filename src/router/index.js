@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import chatSpace from '../components/chatSpace'
-
+import home from '../pages/home'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -12,11 +12,12 @@ VueRouter.prototype.push = function push(location) {
 
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
+  {
+    path: '/',
+    name: 'home',
+    component:home
 
-  // },
+  },
   {
     path:'/chat',
     name:'chatSpace',
