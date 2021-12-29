@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <header>
+    <header :class="{ active: currentSessionId === 0 }" @click="changeCurrentSessionId(0)">
       <img :src="userimg" alt="" class="avatar" />
       <span class="name">李狗蛋</span>
     </header>
@@ -16,7 +16,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
+  computed: mapState(["currentSessionId"]),
   name: "user",
   data() {
     return {
@@ -24,10 +26,25 @@ export default {
       userimg: require("../assets/1.jpg"),
     };
   },
+  methods: {
+    changeCurrentSessionId: function (id) {
+      this.$store.commit("changeCurrentSessionId", id);
+      this.$router.push('/')
+    },
+  },
 };
 </script>
 
 <style scoped>
+header {
+  padding-top: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+header.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 .user {
   padding: 10px;
   box-sizing: border-box;

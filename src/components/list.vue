@@ -25,6 +25,7 @@ export default {
   methods: {
     changeCurrentSessionId: function (id) {
       this.$store.commit("changeCurrentSessionId", id);
+      this.$router.push('/chat')
     },
   },
 };

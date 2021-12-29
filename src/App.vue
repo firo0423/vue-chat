@@ -7,8 +7,7 @@
         <list />
       </div>
       <div class="main">
-        <chatarea />
-        <entertextarea />
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -17,16 +16,12 @@
 <script>
 import user from "./components/user.vue";
 import list from "./components/list.vue";
-import chatarea from "./components/chatarea.vue";
-import entertextarea from "./components/entertextarea.vue";
 
 export default {
   name: "App",
   components: {
     user,
     list,
-    chatarea,
-    entertextarea,
   },
   data() {
     return {};

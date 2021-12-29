@@ -44,7 +44,7 @@ export default new Vuex.Store({
         ],
       },
     ],
-    currentSessionId: 1,
+    currentSessionId: 0,
   },
   mutations: {
     changeCurrentSessionId(state, id) {
