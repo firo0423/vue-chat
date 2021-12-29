@@ -10,6 +10,7 @@ exports.encryption = function(e) {
 }
 
 // 解密
+// 第一个参数就是正常的密码 第二个参数的加密后的hash值 结果产生一个布尔值
 exports.verification = function(e,hash){
     let verif = bcrypt.compareSync(e,hash)
     return verif
