@@ -1,19 +1,20 @@
 # chat
-本项目准备做一个前后端结合的网页端的在线聊天
-后端使用node.js+Mogoose+express+JWT验证
-前端使用Vue+element-ui+Vuex+echarts
-后续准备继续学习websocket协议进行前后端结合
+本项目准备做一个前后端结合的网页端的在线聊天<br>
+后端使用node.js+Mogoose+express+JWT验证<br>
+前端使用Vue+element-ui+Vuex+echarts<br>
+后续准备继续学习websocket协议进行前后端结合<br>
 
 ## 参考项目
-前端项目原版：https://github.com/Coffcer/vue-chat
-前端项目重构版：https://github.com/Coffcer/vue-chat
-基本上是以重构版改动，主要使用了vue-cli3脚手架进行搭建
-
-后端项目学习：https://www.bilibili.com/video/BV1uz4y1D75z?share_source=copy_web
-up主：yike陈
+前端项目原版：https://github.com/Coffcer/vue-chat <br>
+前端项目重构版：https://github.com/Coffcer/vue-chat <br>
+基本上是以重构版改动，主要使用了vue-cli3脚手架进行搭建 <br>
 <br>
-感谢这些项目的作者给我了一个学习的机会，项目后面还会慢慢学习完成，中间自己也瞎捣鼓了点东西，学的也不是很扎实。
+后端项目学习：https://www.bilibili.com/video/BV1uz4y1D75z?share_source=copy_web <br>
+up主：yike陈 <br>
+<br>
+感谢这些项目的作者给我了一个学习的机会，项目后面还会慢慢学习完成，中间自己也瞎捣鼓了点东西，学的也不是很扎实，有问题也感谢各位大佬指正。
 ## 文件结构
+```
 chat
 ├── public
 │   ├── favicon.ico
@@ -59,3 +60,4 @@ chat
 ├── package.json
 ├── README.md
 └── vue.config.js
+```
