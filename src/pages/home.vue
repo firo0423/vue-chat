@@ -10,11 +10,9 @@
     <el-divider></el-divider>
     <el-main>
       <div class="tab">
-        <!-- 添加数据模块
-        <el-button type="primary" size="default" class="innerAddTagBtn" circle
-          ><i class="el-icon-plus"></i
-        ></el-button> -->
-        <el-popover placement="right" width="370" trigger="click">
+        <!-- 修改数据模块 -->
+        <!-- popper-class为popover添加类名 class不行 -->
+        <el-popover placement="right" width="370" trigger="click" popper-class="editTag">
           <!-- 嵌套表单来添加标签 -->
           <el-table :data="this.$store.state['worddata']" style="width: 100%">
             <!-- 后面使用了slot-scope="scope" 就不用prop绑定数据了 -->
@@ -68,6 +66,45 @@
           <!-- 这是外面的触发按钮 -->
           <el-button slot="reference" size="small"
             ><span>标签</span> <i class="el-icon-edit"></i
+          ></el-button>
+        </el-popover>
+        
+        <!-- 添加数据模块 -->
+        <el-popover
+          placement="right"
+          width="300"
+          trigger="click"
+          class="addTag"
+        >
+          <!-- 嵌套表单来添加标签 -->
+          <el-form ref="form" :model="tagForm" label-width="80px">
+            <el-form-item label="标签名称">
+              <el-input
+                v-model="tagForm.newTag"
+                placeholder="说点什么"
+                size="normal"
+                clearable
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="标签大小">
+              <el-input
+                v-model="tagForm.tagSize"
+                placeholder="0~15000"
+                size="normal"
+                clearable
+              ></el-input>
+              <el-button
+                type="primary"
+                size="default"
+                class="innerAddTagBtn"
+                @click="addNewTag(tagForm)"
+                >添加标签</el-button
+              >
+            </el-form-item>
+          </el-form>
+
+          <el-button slot="reference" size="small"  class="outAddTagBtn"
+            ><span>标签</span> <i class="el-icon-plus"></i
           ></el-button>
         </el-popover>
       </div>
@@ -153,8 +190,13 @@ export default {
   background-color: #c0c4cc;
   color: #fff;
 }
-
-.addTagBtn {
+/* 控制添加按钮位置 */
+.outAddTagBtn{
+  position: absolute;
+  top: 220px;
+  left: 100px;
+}
+.innerAddTagBtn {
   margin-top: 10px;
   margin-left: 30px;
 }

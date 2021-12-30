@@ -78,7 +78,7 @@ export default {
 }
 /* 设置弹出框的样式 */
 
-.el-popover{
+.editTag {
   height: 300px; 
   overflow: auto;
 }
