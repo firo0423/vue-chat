@@ -13,6 +13,10 @@
 up主：yike陈 <br>
 <br>
 感谢这些项目的作者给我了一个学习的机会，项目后面还会慢慢学习完成，中间自己也瞎捣鼓了点东西，学的也不是很扎实，有问题也感谢各位大佬指正。
+## 截图
+![image](https://user-images.githubusercontent.com/93251384/147757434-70233bae-a14b-4dd8-abc1-2a38efa4d07c.png)
+![image](https://user-images.githubusercontent.com/93251384/147757503-9b2cb689-d090-40b7-8079-e4b3f8427a60.png)
+
 ## 文件结构
 ```
 chat
