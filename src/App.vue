@@ -76,4 +76,29 @@ export default {
   overflow: hidden;
   background-color: #eee;
 }
+/* 设置弹出框的样式 */
+
+.el-popover{
+  height: 300px; 
+  overflow: auto;
+}
+/* // 滚动条宽度 */
+.el-popover::-webkit-scrollbar {
+  width: 6px;
+}
+/* // 滚动条轨道 */
+.el-popover::-webkit-scrollbar-track {
+  background: rgb(239, 239, 239);
+  border-radius: 2px;
+}
+/* // 小滑块 */
+.el-popover::-webkit-scrollbar-thumb {
+  background: #40a0ff49;
+  border-radius: 10px;
+}
+.el-popover::-webkit-scrollbar-thumb:hover {
+  background: #40a0ff;
+}
+
+
 </style>

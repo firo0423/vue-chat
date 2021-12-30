@@ -22,17 +22,24 @@ export default {
     };
   },
   mounted() {
-      this.initChart();
+    this.initChart();
   },
-  watch:{
-    Eworddata(){
-      this.initChart()
-    }
+  watch: {
+    Eworddata: {
+      deep: true,
+      handler() {
+        this.initChart();
+      },
+    },
   },
   methods: {
     initChart() {
+      //防止出现“There is a chart instance already initialized on the dom.”的警告
+      //在使用echarts发现需要及时对新建的myChart实例进行销毁,否则会出现上述警告
+      if (this.chart != null && this.chart != "" && this.chart != undefined) {
+        this.chart.dispose();
+      }
       this.chart = echarts.init(this.$refs.echar);
-      console.log("lll");
       const option = {
         title: {
           text: "",
