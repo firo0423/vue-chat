@@ -17,8 +17,6 @@ export default {
   computed: mapGetters(["worddata_get"]),
   data() {
     return {
-      Eworddata: this.$store.state["worddata"],
-      msg: "Welcome to Your Vue.js App",
     };
   },
   mounted() {
