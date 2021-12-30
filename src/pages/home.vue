@@ -215,3 +215,5 @@ export default {
       if (this.chart != null && this.chart != "" && this.chart != undefined) {
         this.chart.dispose();
       }
+// 3. 第二个popover的样式问题， 准备把添加修改和删除坐在一起，但是表格内的插入不同内别无法进行（比如第一行是输入框）
+// 解决,直接再写一个popover算了，注意第二个触发按钮的位置 和 popper-class的使用
