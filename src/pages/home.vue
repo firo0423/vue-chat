@@ -67,7 +67,7 @@
 
           <!-- 这是外面的触发按钮 -->
           <el-button slot="reference" size="small"
-            ><span>标签</span> <i class="el-icon-plus"></i
+            ><span>标签</span> <i class="el-icon-edit"></i
           ></el-button>
         </el-popover>
       </div>
