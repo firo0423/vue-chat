@@ -2,19 +2,19 @@
   <div
     id="mywordcloud"
     :style="{ width: '100%', height: '300px' }"
-    :data="worddata"
+    :data="worddata_get"
     ref="echar"
   ></div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import * as echarts from "echarts";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
 export default {
   name: "echar",
-  computed: mapState(["worddata"]),
+  computed: mapGetters(["worddata_get"]),
   data() {
     return {
       Eworddata: this.$store.state["worddata"],
@@ -25,15 +25,17 @@ export default {
     this.initChart();
   },
   watch: {
-    Eworddata: {
+    worddata_get: {
       deep: true,
-      handler() {
+      handler(newVal, oldVal) {
+        console.log('watch');
         this.initChart();
       },
     },
   },
   methods: {
     initChart() {
+      console.log();
       //防止出现“There is a chart instance already initialized on the dom.”的警告
       //在使用echarts发现需要及时对新建的myChart实例进行销毁,否则会出现上述警告
       if (this.chart != null && this.chart != "" && this.chart != undefined) {
@@ -90,7 +92,7 @@ export default {
             width: "200%",
             height: "200%",
             //数据
-            data: this.worddata,
+            data: this.worddata_get,
           },
         ],
       };

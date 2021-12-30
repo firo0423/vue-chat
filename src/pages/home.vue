@@ -58,6 +58,7 @@
                   icon="el-icon-delete"
                   circle
                   size="mini"
+                  @click="deleteTag(scope.row.id)"
                 ></el-button>
               </template>
             </el-table-column>
@@ -134,6 +135,9 @@ export default {
     addNewTag(tagForm) {
       // 不支持传多个参数，用对象传过去
       this.$store.commit("addNewTag", tagForm);
+    },
+    deleteTag(tagId){
+      this.$store.commit("deleteTag", tagId);
     },
     edit(row, index) {
       row.iseditor = true;
