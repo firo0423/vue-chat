@@ -25,7 +25,7 @@
               <template slot-scope="scope">
                 <!-- 修改数据 -->
                 <input
-                  v-focus
+                  
                   type="text"
                   v-model="scope.row.name"
                   v-show="scope.row.iseditor"
@@ -121,7 +121,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import echar from "../components/echar.vue";
 export default {
   components: {
@@ -154,15 +153,15 @@ export default {
     },
 
   },
-  directives: {
-  focus: {
-    /*inserted函数表示当绑定了该指令的元素被插入到dom时候会自动触发*/
-    inserted: function (el) {
-      console.log(el);
-      el.focus()
-    }
-  }
-},
+//   directives: {
+//   focus: {
+//     /*inserted函数表示当绑定了该指令的元素被插入到dom时候会自动触发*/
+//     inserted: function (el) {
+//       console.log(el);
+//       el.focus()
+//     }
+//   }
+// },
 
 };
 </script>
