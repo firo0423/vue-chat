@@ -1,6 +1,7 @@
 const bcrypt = require("./bcrypt");
 const dbserver = require("../dao/dbserver");
 const dbmodel = require("../model/dbmodel");
+const jwtAPI = require('jsonwebtoken')
 const jwt = require("./jwt");
 var User = dbmodel.model("user");
 
@@ -82,4 +83,22 @@ exports.matchUser = async (req,res)=>{
       })
     }
   }
+}
+
+exports.getUserData = async (req,res)=>{
+  const secretKey = "nibaba..";
+  const token = (req.headers.authorization || "").split(" ")[1];
+  const jwtResult = await jwtAPI.verify(token,secretKey)
+  let result = await User.findOne({ name: jwtResult.username }).catch();
+  // 初始化发送数据
+  result = {
+    name:result.name,
+    sex:result.sex,
+    imgurl:result.imgurl
+  }
+  res.status(200).send({
+    code:200,
+    data:result
+  })
+
 }

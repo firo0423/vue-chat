@@ -4,7 +4,7 @@
       <div class="block">
         <el-avatar :size="100" :src="userimg"></el-avatar>
       </div>
-      <span>{{ username }}</span>
+      <span>{{ userData.name }} 你好</span>
       <div class="state"><i class="el-icon-edit"></i>学习中</div>
     </el-header>
     <el-divider></el-divider>
@@ -25,7 +25,6 @@
               <template slot-scope="scope">
                 <!-- 修改数据 -->
                 <input
-                  
                   type="text"
                   v-model="scope.row.name"
                   v-show="scope.row.iseditor"
@@ -110,7 +109,7 @@
             </el-form-item>
           </el-form>
 
-          <el-button slot="reference" size="small" class="outAddTagBtn"
+          <el-button slot="reference" size="small"
             ><span>标签</span> <i class="el-icon-plus"></i
           ></el-button>
         </el-popover>
@@ -122,7 +121,9 @@
 
 <script>
 import echar from "../components/echar.vue";
+import { mapState } from "vuex";
 export default {
+  computed: mapState(["userData"]),
   components: {
     echar,
   },
@@ -134,7 +135,6 @@ export default {
       },
 
       userimg: require("../assets/1.jpg"),
-      username: "李狗蛋",
     };
   },
   methods: {
@@ -151,18 +151,16 @@ export default {
     save(row, index) {
       row.iseditor = false;
     },
-
   },
-//   directives: {
-//   focus: {
-//     /*inserted函数表示当绑定了该指令的元素被插入到dom时候会自动触发*/
-//     inserted: function (el) {
-//       console.log(el);
-//       el.focus()
-//     }
-//   }
-// },
-
+  //   directives: {
+  //   focus: {
+  //     /*inserted函数表示当绑定了该指令的元素被插入到dom时候会自动触发*/
+  //     inserted: function (el) {
+  //       console.log(el);
+  //       el.focus()
+  //     }
+  //   }
+  // },
 };
 </script>
 
@@ -199,7 +197,7 @@ export default {
 }
 .tab {
   margin-right: 0px;
-  width: 60px;
+  width: 160px;
   transition: all 0.2s;
 }
 
@@ -211,12 +209,7 @@ export default {
   background-color: #c0c4cc;
   color: #fff;
 }
-/* 控制添加按钮位置 */
-.outAddTagBtn {
-  position: absolute;
-  top: 220px;
-  left: 100px;
-}
+
 .innerAddTagBtn {
   margin-top: 10px;
   margin-left: 30px;

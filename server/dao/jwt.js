@@ -4,7 +4,7 @@ const setToken = require("./jwt");
 const secretKey = "nibaba..";
 const refreshKey = "niyeye..";
 
-//登录时：核对用户名和密码成功后，应用将用户的id（图中的user_id）作为JWT Payload的一个属性
+//登录时：核对用户名和密码成功后，应用将用户的id（图中的username）作为JWT Payload的一个属性
 exports.setAccessToken = (username) => {
   const token = jwt.sign(
     {
@@ -12,7 +12,7 @@ exports.setAccessToken = (username) => {
     },
     secretKey,
     {
-      expiresIn: "10s",
+      expiresIn: "3d",
     }
   );
   return token;
@@ -30,6 +30,10 @@ exports.setRefreshToken = (username) => {
   );
   return token;
 };
+
+// 对这部分有个想法，如果用app.post('/judge',jwt.checkToken,dbserver.judgeValue) 这种验证方式完全可以
+// 但是后面的接口不能直接拿到username这个数据，还是需要在接口内部写jwt.verify来拿到用户信息，
+// 优化想法：把这部分的业务逻辑放在app中使用拦截器来拦截jwt错误，在需要用户信息的接口进行认证jwt.verify
 
 // 检查token
 exports.checkToken = (req, res, next) => {
@@ -56,8 +60,8 @@ exports.checkToken = (req, res, next) => {
             }
             // 刷新令牌验证成功
             else {
-              let accessToken = setToken.setAccessToken(decode.user_id);
-              let refreshToken = setToken.setRefreshToken(decode.user_id);
+              let accessToken = setToken.setAccessToken(decode.username);
+              let refreshToken = setToken.setRefreshToken(decode.username);
               res.status(200).send({
                 code: 200,
                 message: "刷新token成功",

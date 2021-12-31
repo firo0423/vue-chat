@@ -5,6 +5,8 @@ Vue.use(Vuex);
 const now = new Date();
 export default new Vuex.Store({
   state: {
+    userData: "",
+    currentuserData: JSON.parse(window.sessionStorage.getItem("user")),
     worddata: [
       {
         id: 1,
@@ -157,6 +159,10 @@ export default new Vuex.Store({
     currentSessionId: 0,
   },
   mutations: {
+    initUser(state, data) {
+      state.userData = data;
+    },
+
     changeCurrentSessionId(state, id) {
       state.currentSessionId = id;
     },
@@ -187,7 +193,15 @@ export default new Vuex.Store({
     worddata_get: (state) => state.worddata,
   },
 
-  actions: {},
+  actions: {
+    initData(context) {
+      getRequest(this.HOST+"/user/getUserData").then((res) => {
+        if (res) {
+          context.commit("initUser", res.data);
+        }
+      });
+    },
+  },
   modules: {},
 });
 // vuex是不能监听到数组的长度变化的!!!!!!!
