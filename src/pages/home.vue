@@ -12,7 +12,12 @@
       <div class="tab">
         <!-- 修改数据模块 -->
         <!-- popper-class为popover添加类名 class不行 -->
-        <el-popover placement="right" width="370" trigger="click" popper-class="editTag">
+        <el-popover
+          placement="right"
+          width="370"
+          trigger="click"
+          popper-class="editTag"
+        >
           <!-- 嵌套表单来添加标签 -->
           <el-table :data="this.$store.state['worddata']" style="width: 100%">
             <!-- 后面使用了slot-scope="scope" 就不用prop绑定数据了 -->
@@ -20,6 +25,7 @@
               <template slot-scope="scope">
                 <!-- 修改数据 -->
                 <input
+                  v-focus
                   type="text"
                   v-model="scope.row.name"
                   v-show="scope.row.iseditor"
@@ -69,7 +75,7 @@
             ><span>标签</span> <i class="el-icon-edit"></i
           ></el-button>
         </el-popover>
-        
+
         <!-- 添加数据模块 -->
         <el-popover
           placement="right"
@@ -104,7 +110,7 @@
             </el-form-item>
           </el-form>
 
-          <el-button slot="reference" size="small"  class="outAddTagBtn"
+          <el-button slot="reference" size="small" class="outAddTagBtn"
             ><span>标签</span> <i class="el-icon-plus"></i
           ></el-button>
         </el-popover>
@@ -115,6 +121,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import echar from "../components/echar.vue";
 export default {
   components: {
@@ -136,7 +143,7 @@ export default {
       // 不支持传多个参数，用对象传过去
       this.$store.commit("addNewTag", tagForm);
     },
-    deleteTag(tagId){
+    deleteTag(tagId) {
       this.$store.commit("deleteTag", tagId);
     },
     edit(row, index) {
@@ -145,7 +152,18 @@ export default {
     save(row, index) {
       row.iseditor = false;
     },
+
   },
+  directives: {
+  focus: {
+    /*inserted函数表示当绑定了该指令的元素被插入到dom时候会自动触发*/
+    inserted: function (el) {
+      console.log(el);
+      el.focus()
+    }
+  }
+},
+
 };
 </script>
 
@@ -195,7 +213,7 @@ export default {
   color: #fff;
 }
 /* 控制添加按钮位置 */
-.outAddTagBtn{
+.outAddTagBtn {
   position: absolute;
   top: 220px;
   left: 100px;
@@ -208,7 +226,6 @@ export default {
 .el-form-item:last-child {
   margin-bottom: 0px;
 }
-
 </style>
 
 // 下面记录一下问题
@@ -221,3 +238,11 @@ export default {
       }
 // 3. 第二个popover的样式问题， 准备把添加修改和删除坐在一起，但是表格内的插入不同内别无法进行（比如第一行是输入框）
 // 解决,直接再写一个popover算了，注意第二个触发按钮的位置 和 popper-class的使用
+// 4. 设置编辑属性自动聚焦时，发现每次修改worddata的值，仅echar区域发生销毁和重新挂载，其他组件没有变化，故无法通过mounted的 nextTick
+// 进行自动聚焦       this.$refs.input.focus(); 无法触发
+// 解决使用 自定义指令 https://blog.csdn.net/qq_36070288/article/details/103977413
+// 而且要注意 使用v-if 不要用v-show v-show元素都没了 
+// 新问题，设置的触发太艹了，聚焦于name 再点 value 就没有输入框了，就一辈子点不了修改数值 - 不整这个活了
+// 后续改进：结合后端和数据库的使用，修改完成后点击保存按钮再 上传数据和刷新页面 
+
+// 5. 目前做的是本地储存worddata信息，现在是每次点击click按键，每次修改完内容，每次失去焦点都会触发echar的刷新，这在后面使用服务器的情况会占用大量资源
