@@ -121,7 +121,7 @@ export default {
                   type: "success",
                 });
                 // 注册后跳转
-                this.$router.replace("/Home");
+                this.$router.push({name:'home'});
               }
             })
 

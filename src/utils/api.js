@@ -24,7 +24,8 @@ axios.interceptors.response.use(
         return;
       }
       // 为刷新令牌准备
-      if (success.data.code == 200) {
+      if (success.data.code == 201) {
+
         // Message.success({ message: success.data.message });
         window.localStorage.setItem(
           "tokenStr",

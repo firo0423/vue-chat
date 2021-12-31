@@ -24,7 +24,7 @@ exports.buildUser = async function (req, res) {
     // 给数据库的数据
     let data = {
       name: req.body.username,
-      email: req.body.mail,
+      email: "req.body.mail",
       password: password,
       registerTime: new Date(),
     };

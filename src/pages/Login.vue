@@ -101,7 +101,7 @@ export default {
               this.tokenStr = `Bearer ${res.accessToken} ${res.refreshToken}`;
 
               window.localStorage.setItem("tokenStr", this.tokenStr);
-              this.$router.replace("/Home/test1");
+              this.$router.push({name:'home'});
             })
             .catch((reason) => {
               console.log("失败的登录");
