@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { nanoid } from "nanoid";
+
 Vue.use(Vuex);
 const now = new Date();
 export default new Vuex.Store({
@@ -64,20 +64,8 @@ export default new Vuex.Store({
         self: true,
       });
     },
-    addNewTag(state, tagForm) {
-      console.log(tagForm);
-      state.worddata.push({
-        id: nanoid(),
-        name: tagForm.newTag,
-        value: tagForm.tagSize,
-        iseditor: false,
-      });
-    },
-    deleteTag(state, tagId) {
-      state.worddata = state.worddata.filter((data) => {
-        return data.id !== tagId;
-      });
-    },
+    
+    
   },
   // getters: {
   //   worddata_get: (state) => state.worddata,

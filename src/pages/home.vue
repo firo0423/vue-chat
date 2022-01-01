@@ -18,9 +18,15 @@
           trigger="click"
           popper-class="editTag"
         >
-        <!-- 设置一个保存按钮 点击上传服务器 -->
-        <el-button type="success" size="mini" @click="uploadTags" class="savebtn">保存</el-button>
-        
+          <!-- 设置一个保存按钮 点击上传服务器 -->
+          <el-button
+            type="success"
+            size="mini"
+            @click="uploadTags"
+            class="savebtn"
+            >保存</el-button
+          >
+
           <!-- 嵌套表单来添加标签 -->
           <el-table :data="tags" style="width: 100%">
             <!-- 后面使用了slot-scope="scope" 就不用prop绑定数据了 -->
@@ -117,13 +123,14 @@
           ></el-button>
         </el-popover>
       </div>
-      <echar v-if="tags.length!==0" :tags='tags'/>
+      <echar v-if="tags.length !== 0" :tags="tags" />
     </el-main>
   </div>
 </template>
 
 <script>
 import echar from "../components/echar.vue";
+import { nanoid } from "nanoid";
 import { mapState } from "vuex";
 export default {
   computed: mapState(["userData"]),
@@ -140,10 +147,11 @@ export default {
       userimg: require("../assets/1.jpg"),
     };
   },
-  mounted () {
-    this.getUserTags()
+  mounted() {
+    this.getUserTags();
   },
   methods: {
+    // 异步获取服务器的用户标签
     async getUserTags() {
       let res = await this.getRequest(this.HOST + "/user/getUserTags").then(
         (res) => {
@@ -153,25 +161,42 @@ export default {
       this.tags = res.data.tags;
     },
 
+    // 添加标签
     addNewTag(tagForm) {
-      // 不支持传多个参数，用对象传过去
-      this.$store.commit("addNewTag", tagForm);
+      this.tags.push({
+        id: nanoid(),
+        name: tagForm.newTag,
+        value: tagForm.tagSize,
+        iseditor: false,
+      });
+      this.uploadTags();
     },
+
+    // 删除标签
     deleteTag(tagId) {
-      this.$store.commit("deleteTag", tagId);
+      this.tags = this.tags.filter((data) => {
+        return data.id !== tagId;
+      });
     },
+
+    // 编辑标签
     edit(row, index) {
       row.iseditor = true;
     },
+
+    // 暂存标签
     save(row, index) {
       row.iseditor = false;
     },
 
-    uploadTags(){
-      this.postRequest(this.HOST + "/user/updateUserTags",this.tags).then(
-        res => {console.log(res);}
-      )
-    }
+    // 上传至服务器
+    uploadTags() {
+      this.postRequest(this.HOST + "/user/updateUserTags", this.tags).then(
+        (res) => {
+          console.log(res);
+        }
+      );
+    },
   },
   //   directives: {
   //   focus: {
@@ -231,8 +256,7 @@ export default {
   color: #fff;
 }
 
-
-.savebtn{
+.savebtn {
   position: absolute;
   right: 10px;
   top: 20px;
