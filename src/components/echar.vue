@@ -19,11 +19,12 @@ export default {
     return {
     };
   },
+
+
   mounted() {
     this.initChart();
   },
-  props:['tags'],
-  watch: {},
+  props: ["tags"],
   methods: {
     // 进行表格的初始化
     async initChart() {

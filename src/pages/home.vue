@@ -123,7 +123,7 @@
           ></el-button>
         </el-popover>
       </div>
-      <echar v-if="tags.length !== 0" :tags="tags" />
+      <echar v-if="tags.length !== 0" :tags="tags" ref="echar" />
     </el-main>
   </div>
 </template>
@@ -196,6 +196,7 @@ export default {
           console.log(res);
         }
       );
+      this.$refs.echar.initChart()
     },
   },
   //   directives: {
@@ -292,3 +293,5 @@ export default {
 // 5. 目前做的是本地储存worddata信息，现在是每次点击click按键，每次修改完内容，每次失去焦点都会触发echar的刷新，这在后面使用服务器的情况会占用大量资源
 // 6. 异步操作获取服务器数据的时候 用props或者provide传的数据都无法及时显示
 // 解决；在子组件上设置v-if条件当数据存在时再去渲染
+// 7. 如何从子组件得到数据或者方法
+// 解决通过 标签上 ref="名字" 再使用 this.$refs.名字.数据/方法
