@@ -19,13 +19,23 @@
           popper-class="editTag"
         >
           <!-- 设置一个保存按钮 点击上传服务器 -->
-          <el-button
-            type="success"
-            size="mini"
-            @click="uploadTags"
-            class="savebtn"
-            >保存</el-button
-          >
+          <div class="btnBox">
+            <el-button
+              type="info"
+              size="mini"
+              @click="getUserTags"
+              class="resetbtn"
+              >重置</el-button
+            >
+
+            <el-button
+              type="success"
+              size="mini"
+              @click="uploadTags"
+              class="savebtn"
+              >保存
+            </el-button>
+          </div>
 
           <!-- 嵌套表单来添加标签 -->
           <el-table :data="tags" style="width: 100%">
@@ -196,7 +206,7 @@ export default {
           console.log(res);
         }
       );
-      this.$refs.echar.initChart()
+      this.$refs.echar.initChart();
     },
   },
   //   directives: {
@@ -257,12 +267,13 @@ export default {
   color: #fff;
 }
 
-.savebtn {
+.btnBox {
   position: absolute;
   right: 10px;
   top: 20px;
   z-index: 999;
 }
+
 .innerAddTagBtn {
   margin-top: 10px;
   margin-left: 30px;
