@@ -2,7 +2,7 @@
   <div
     id="mywordcloud"
     :style="{ width: '100%', height: '300px' }"
-    :data="worddata_get"
+    :data="worddata"
     ref="echar"
   ></div>
 </template>
@@ -17,24 +17,27 @@ export default {
   // computed: mapGetters(["worddata_get"]),
   data() {
     return {
-      worddata:''
+      worddata: "",
     };
   },
   mounted() {
     this.initChart();
   },
-  watch: {
-
-  },
+  watch: {},
   methods: {
-    getWordData(){
-      this.getRequest(this.HOST + "/api/login")
-      .then((res)=>{
-        
-      })
+    // 异步获取用户数据并导入到vue中
+    async getUserTags() {
+      let res = await this.getRequest(this.HOST + "/user/getUserTags").then(
+        (res) => {
+          return res;
+        }
+      );
+      this.worddata=res.data.tags;
     },
-    initChart() {
-      console.log();
+    
+    // 进行表格的初始化
+    async initChart() {
+      await this.getUserTags();
       //防止出现“There is a chart instance already initialized on the dom.”的警告
       //在使用echarts发现需要及时对新建的myChart实例进行销毁,否则会出现上述警告
       if (this.chart != null && this.chart != "" && this.chart != undefined) {

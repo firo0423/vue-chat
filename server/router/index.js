@@ -8,6 +8,6 @@ module.exports = function(app){
     app.post('/api/login',dbserver.matchUser)
     app.post('/api/register',dbserver.buildUser)
     app.get('/user/getUserData',jwt.checkToken,aboutUserData.getUserData)
+    app.get('/user/getUserTags',jwt.checkToken,aboutUserData.getUserTags)
     // app.get('/test',aboutUserData.test)
-
 }   
