@@ -19,7 +19,7 @@
           popper-class="editTag"
         >
           <!-- 嵌套表单来添加标签 -->
-          <el-table :data="this.$store.state['worddata']" style="width: 100%">
+          <el-table :data="tags" style="width: 100%">
             <!-- 后面使用了slot-scope="scope" 就不用prop绑定数据了 -->
             <el-table-column label="标签名" width="120">
               <template slot-scope="scope">
@@ -114,7 +114,7 @@
           ></el-button>
         </el-popover>
       </div>
-      <echar />
+      <echar v-if="tags.length!==0" :tags='tags'/>
     </el-main>
   </div>
 </template>
@@ -133,11 +133,23 @@ export default {
         newTag: "",
         tagSize: "",
       },
-
+      tags: [],
       userimg: require("../assets/1.jpg"),
     };
   },
+  created () {
+    this.getUserTags()
+  },
   methods: {
+    async getUserTags() {
+      let res = await this.getRequest(this.HOST + "/user/getUserTags").then(
+        (res) => {
+          return res;
+        }
+      );
+      this.tags = res.data.tags;
+    },
+
     addNewTag(tagForm) {
       // 不支持传多个参数，用对象传过去
       this.$store.commit("addNewTag", tagForm);
@@ -238,3 +250,5 @@ export default {
 // 后续改进：结合后端和数据库的使用，修改完成后点击保存按钮再 上传数据和刷新页面 
 
 // 5. 目前做的是本地储存worddata信息，现在是每次点击click按键，每次修改完内容，每次失去焦点都会触发echar的刷新，这在后面使用服务器的情况会占用大量资源
+// 6. 异步操作获取服务器数据的时候 用props或者provide传的数据都无法及时显示
+// 解决；在子组件上设置v-if条件当数据存在时再去渲染
