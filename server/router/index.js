@@ -7,7 +7,11 @@ module.exports = function(app){
     app.post('/judge',dbserver.judgeValue)
     app.post('/api/login',dbserver.matchUser)
     app.post('/api/register',dbserver.buildUser)
+
+    app.post('/user/updateUserTags',jwt.checkToken,aboutUserData.updateUserTags)
     app.get('/user/getUserData',jwt.checkToken,aboutUserData.getUserData)
     app.get('/user/getUserTags',jwt.checkToken,aboutUserData.getUserTags)
+
+
     // app.get('/test',aboutUserData.test)
 }   

@@ -45,6 +45,30 @@ exports.getUserTags = async (req, res) => {
   });
 };
 
+// 上传用户的标签内容
+exports.updateUserTags = (req, res) => {
+  console.log(req.body);
+  const secretKey = "nibaba..";
+  const token = (req.headers.authorization || "").split(" ")[1];
+  const jwtResult = jwtAPI.verify(token, secretKey);
+  User.findOneAndUpdate(
+    { name: jwtResult.username },
+    {tags:req.body},
+    {},
+    // data返回修改前的数据信息
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(data);
+    }
+  );
+  res.send({
+    code: 200,
+    message: "修改标签成功",
+  });
+};
 // exports.test = (req, res) => {
 //   worddata = [
 //     {

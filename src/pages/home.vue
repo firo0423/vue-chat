@@ -18,6 +18,9 @@
           trigger="click"
           popper-class="editTag"
         >
+        <!-- 设置一个保存按钮 点击上传服务器 -->
+        <el-button type="success" size="mini" @click="uploadTags" class="savebtn">保存</el-button>
+        
           <!-- 嵌套表单来添加标签 -->
           <el-table :data="tags" style="width: 100%">
             <!-- 后面使用了slot-scope="scope" 就不用prop绑定数据了 -->
@@ -137,7 +140,7 @@ export default {
       userimg: require("../assets/1.jpg"),
     };
   },
-  created () {
+  mounted () {
     this.getUserTags()
   },
   methods: {
@@ -163,6 +166,12 @@ export default {
     save(row, index) {
       row.iseditor = false;
     },
+
+    uploadTags(){
+      this.postRequest(this.HOST + "/user/updateUserTags",this.tags).then(
+        res => {console.log(res);}
+      )
+    }
   },
   //   directives: {
   //   focus: {
@@ -222,6 +231,13 @@ export default {
   color: #fff;
 }
 
+
+.savebtn{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  z-index: 999;
+}
 .innerAddTagBtn {
   margin-top: 10px;
   margin-left: 30px;
