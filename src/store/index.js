@@ -189,18 +189,18 @@ export default new Vuex.Store({
       });
     },
   },
-  getters: {
-    worddata_get: (state) => state.worddata,
-  },
+  // getters: {
+  //   worddata_get: (state) => state.worddata,
+  // },
 
   actions: {
-    initData(context) {
-      getRequest(this.HOST+"/user/getUserData").then((res) => {
-        if (res) {
-          context.commit("initUser", res.data);
-        }
-      });
-    },
+    // initData(context) {
+    //   getRequest(this.HOST+"/user/getUserData").then((res) => {
+    //     if (res) {
+    //       context.commit("initUser", res.data);
+    //     }
+    //   });
+    // },
   },
   modules: {},
 });

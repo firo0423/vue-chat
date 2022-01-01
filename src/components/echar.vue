@@ -8,30 +8,31 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import * as echarts from "echarts";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
 export default {
   name: "echar",
-  computed: mapGetters(["worddata_get"]),
+  // computed: mapGetters(["worddata_get"]),
   data() {
     return {
+      worddata:''
     };
   },
   mounted() {
     this.initChart();
   },
   watch: {
-    worddata_get: {
-      deep: true,
-      handler(newVal, oldVal) {
-        console.log('watch');
-        this.initChart();
-      },
-    },
+
   },
   methods: {
+    getWordData(){
+      this.getRequest(this.HOST + "/api/login")
+      .then((res)=>{
+        
+      })
+    },
     initChart() {
       console.log();
       //防止出现“There is a chart instance already initialized on the dom.”的警告
@@ -90,7 +91,7 @@ export default {
             width: "200%",
             height: "200%",
             //数据
-            data: this.worddata_get,
+            data: this.worddata,
           },
         ],
       };

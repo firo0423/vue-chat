@@ -63,7 +63,7 @@ exports.checkToken = (req, res, next) => {
               let accessToken = setToken.setAccessToken(decode.username);
               let refreshToken = setToken.setRefreshToken(decode.username);
               res.status(200).send({
-                code: 200,
+                code: 201,
                 message: "刷新token成功",
                 accessToken: accessToken,
                 refreshToken: refreshToken,

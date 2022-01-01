@@ -7,6 +7,7 @@ var UserSchema = new Schema({
     name: {type:String},                                      //用户名
     password: {type:String},                                  //密码
     email: {type:String},                                     //邮箱注册用
+    tags: {type:Array,default:['test']},                      //个人标签
     sex: {type:String, default:"asexual"},                    //性别
     brith: {type:Date},                                       //出生日期
     explain: {type:String},                                   //自我简介
@@ -47,6 +48,7 @@ var GroupMsgSchema = new Schema({
     type: {type:String},                                      //消息类型 0 文字 1图片 2连接
 })
 
+// 会在表里建立一个users 如果不想建就 添加第三个参数表的名字 eg-user 前面那个user正常要大写
 module.exports = db.model('user',UserSchema)
 module.exports = db.model('group',GroupSchema)
 module.exports = db.model('groupUser',GroupUserSchema)
