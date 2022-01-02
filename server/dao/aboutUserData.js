@@ -47,13 +47,15 @@ exports.getUserTags = async (req, res) => {
 
 // 上传用户的标签内容
 exports.updateUserTags = (req, res) => {
-  console.log(req.body);
+  req.body.sort((a, b) => {
+    return b.value - a.value;
+  });
   const secretKey = "nibaba..";
   const token = (req.headers.authorization || "").split(" ")[1];
   const jwtResult = jwtAPI.verify(token, secretKey);
   User.findOneAndUpdate(
     { name: jwtResult.username },
-    {tags:req.body},
+    { tags: req.body },
     {},
     // data返回修改前的数据信息
     (err, data) => {

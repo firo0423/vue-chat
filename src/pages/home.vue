@@ -117,6 +117,7 @@
                 placeholder="0~15000"
                 size="normal"
                 clearable
+                @blur="tagForm.tagSize=Number(tagForm.tagSize)"
               ></el-input>
               <el-button
                 type="primary"
