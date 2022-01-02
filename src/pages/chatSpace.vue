@@ -7,8 +7,8 @@
 
 
 <script>
-import chatarea from './chatarea.vue'
-import entertextarea from './entertextarea.vue'
+import chatarea from '../components/chatarea.vue'
+import entertextarea from '../components/entertextarea.vue'
 export default {
   components: {
     chatarea,

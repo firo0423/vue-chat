@@ -5,7 +5,7 @@ const app = express();
 // 注册解析 表单数据的 body-parser 用来解析node.js body内容
 const bodyParser = require("body-parser");
 // 将请求响应设置content-type设置为application/json
-
+// 利用 Express 托管静态文件
 app.use(express.static('public'))
 app.use("/*", function (req, res, next) {
   // 设置请求头为允许跨域
