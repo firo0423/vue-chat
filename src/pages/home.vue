@@ -1,13 +1,34 @@
 <template>
   <div class="home">
     <el-header height="">
+      <!-- 顶部按钮模块 -->
+      <div class="topOptions">
+        <!-- 下拉菜单 -->
+        <el-dropdown class="topOptionsDropDown">
+          <span class="el-dropdown-link">
+            <i class="el-icon-more"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              ><router-link :to="{name:'uploadUserData'}">修改信息</router-link>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+        <!-- 添加好友 -->
+        <i class="el-icon-plus"></i>
+      </div>
+
+      <!-- 用户头像 -->
       <div class="block">
         <el-avatar :size="100" :src="userimg"></el-avatar>
       </div>
       <span>{{ userData.name }} 你好</span>
       <div class="state"><i class="el-icon-edit"></i>学习中</div>
     </el-header>
+
     <el-divider></el-divider>
+    <!-- 主页主题内容 个性标签 -->
     <el-main>
       <div class="tab">
         <!-- 修改数据模块 -->
@@ -117,7 +138,7 @@
                 placeholder="0~15000"
                 size="normal"
                 clearable
-                @blur="tagForm.tagSize=Number(tagForm.tagSize)"
+                @blur="tagForm.tagSize = Number(tagForm.tagSize)"
               ></el-input>
               <el-button
                 type="primary"
@@ -223,6 +244,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: #000;
+}
 .el-header {
   display: flex;
   flex-direction: column;
@@ -282,6 +307,29 @@ export default {
 /* 取消 表单后面的空白 */
 .el-form-item:last-child {
   margin-bottom: 0px;
+}
+
+.topOptions {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.topOptions i {
+  margin-left: 10px;
+  color: rgba(0, 0, 0, 0.479);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.topOptions i:hover {
+  color: rgb(0, 0, 0);
+}
+
+/* 主页的下拉菜单样式 */
+.el-dropdown-menu__item:focus,
+.el-dropdown-menu__item:not(.is-disabled):hover {
+  color: black !important;
+  background: #eeeeee !important;
+  transition: background 0.2s;
 }
 </style>
 

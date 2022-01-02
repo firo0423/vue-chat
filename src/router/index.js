@@ -1,10 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import mainPage from "../pages/mainPage";
-import chatSpace from "../pages/chatSpace";
-import home from "../pages/home";
+// 一级路由
 import login from "../pages/Login";
 import register from "../pages/Register";
+import mainPage from "../pages/mainPage";
+// 二级路由
+import chatSpace from "../pages/chatSpace";
+import home from "../pages/home";
+import uploadUserData from '../pages/uploadUserData'
+
 
 Vue.use(VueRouter);
 const originalPush = VueRouter.prototype.push;
@@ -38,6 +42,11 @@ const routes = [
         path: "/chat",
         name: "chat",
         component: chatSpace,
+      },
+      {
+        path: "/uploadUserData",
+        name: "uploadUserData",
+        component: uploadUserData,
       },
     ],
   },
