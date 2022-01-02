@@ -4,14 +4,14 @@
       :class="{ active: currentSessionId === 0 }"
       @click="changeCurrentSessionId(0)"
     >
-      <img :src="userimg" alt="" class="avatar" />
+      <img :src="userData.imgurl" alt="" class="avatar" />
       <span class="name">{{ userData.name }}</span>
     </header>
     <footer>
       <input
         class="search"
         type="text"
-        v-model="$store.state.filterKey"
+        v-model="$store.state.filt"
         placeholder="search user..."
       />
     </footer>
@@ -21,12 +21,13 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  computed: mapState(["currentSessionId","userData"]),
+  computed:mapState(["currentSessionId","userData"]),
+
   name: "user",
   data() {
     return {
-      // 计划使用vuex来储存 先填着
-      userimg: require("../assets/1.jpg"),
+      // require(`${userData.imgurl}`)
+      userimg:'http://localhost:4000/images/1.jpg'
     };
   },
   mounted() {

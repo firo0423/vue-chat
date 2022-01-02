@@ -21,7 +21,7 @@
 
       <!-- 用户头像 -->
       <div class="block">
-        <el-avatar :size="100" :src="userimg"></el-avatar>
+        <el-avatar :size="100" :src="userData.imgurl"></el-avatar>
       </div>
       <span>{{ userData.name }} 你好</span>
       <div class="state"><i class="el-icon-edit"></i>学习中</div>
@@ -176,7 +176,6 @@ export default {
         tagSize: "",
       },
       tags: [],
-      userimg: require("../assets/1.jpg"),
     };
   },
   mounted() {

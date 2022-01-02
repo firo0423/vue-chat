@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require("body-parser");
 // 将请求响应设置content-type设置为application/json
 
-
+app.use(express.static('public'))
 app.use("/*", function (req, res, next) {
   // 设置请求头为允许跨域
   res.header("Access-Control-Allow-Origin", "*");
