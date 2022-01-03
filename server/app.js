@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 // 配置路由
 // app.use(router);
 require('./router/index')(app)
+require('./router/files')(app)
 
 // 服务器已经启动
 app.listen("4000", function () {

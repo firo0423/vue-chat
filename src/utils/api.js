@@ -9,7 +9,7 @@ import router from "../router";
 // success 表示成功调用后端接口
 axios.interceptors.response.use(
   (success) => {
-    // console.log(success);
+    console.log(success);
     // 业务逻辑判断
     if (success.status && success.status == 200) {
       // data 中包含想要的数据 以下是业务逻辑错误情况
