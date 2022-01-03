@@ -2,7 +2,9 @@
 const jwtAPI = require("jsonwebtoken");
 const dbmodel = require("../model/dbmodel");
 var User = dbmodel.model("user");
-
+var path = require("path");
+var fs = require("fs");
+var formidable = require("formidable");
 // 这一块代码复用率不高，可以再加一个函数用来储存前面的获取数据库的信息
 async function toDB(req) {
   const secretKey = "nibaba..";
@@ -71,122 +73,210 @@ exports.updateUserTags = (req, res) => {
     message: "修改标签成功",
   });
 };
-// exports.test = (req, res) => {
-//   worddata = [
-//     {
-//       id: 1,
-//       name: "十九大精神",
-//       value: 15000,
-//       iseditor: false,
+
+// 上传并储存用户的图片
+exports.updateUserImg = (req, res) => {
+  //拦截请求
+  var form = new formidable.IncomingForm();
+  form.encoding = "utf-8";
+  form.uploadDir = path.join(__dirname, "../public/images");
+  form.keepExtensions = true; //保留后缀
+  form.maxFieldsSize = 2 * 1024 * 1024;
+
+  //处理图片
+  //field 表示普通控件
+  //files  表示文件控件
+  form.parse(req, function (err, fields, files) {
+    console.log(files.file._writeStream.path);
+    // 提取文件名
+    var filename = files.file.originalFilename
+    var nameArray = filename.split(".");
+    var type = nameArray[nameArray.length - 1];
+    var name = "";
+
+    //多张图片？ 
+    for (var i = 0; i < nameArray.length - 1; i++) {
+      name = name + nameArray[i];
+    }
+    var date = new Date();
+    var time =
+      "_" +
+      date.getFullYear() +
+      "_" +
+      date.getMonth() +
+      "_" +
+      date.getDay() +
+      "_" +
+      date.getHours() +
+      "_" +
+      date.getMinutes();
+    var avatarName = name + time + "." + type;
+    var newPath = form.uploadDir + "/" + avatarName;
+    fs.renameSync(files.file._writeStream.path, newPath); //重命名
+    res.send({ data: "/images/" + avatarName });
+  });
+};
+
+// PersistentFile {
+//   _events: [Object: null prototype] { error: [Function (anonymous)] },
+//   _eventsCount: 1,
+//   _maxListeners: undefined,
+//   lastModifiedDate: 2022-01-03T04:20:53.191Z,
+//   filepath: 'D:\\vue\\vue-chat\\chat\\server\\public\\images\\f5418a1b5a36ac047b4cb6700',
+//   newFilename: 'f5418a1b5a36ac047b4cb6700',
+//   originalFilename: '1.jpg',
+//   mimetype: 'image/jpeg',
+//   hashAlgorithm: false,
+//   size: 5178,
+//   _writeStream: WriteStream {
+//     _writableState: WritableState {
+//       objectMode: false,
+//       highWaterMark: 16384,
+//       finalCalled: true,
+//       needDrain: false,
+//       ending: true,
+//       ended: true,
+//       finished: true,
+//       destroyed: false,
+//       decodeStrings: true,
+//       defaultEncoding: 'utf8',
+//       length: 0,
+//       writing: false,
+//       corked: 0,
+//       sync: false,
+//       bufferProcessing: false,
+//       onwrite: [Function: bound onwrite],
+//       writecb: null,
+//       writelen: 0,
+//       afterWriteTickInfo: null,
+//       buffered: [],
+//       bufferedIndex: 0,
+//       allBuffers: true,
+//       allNoop: true,
+//       pendingcb: 0,
+//       prefinished: true,
+//       errorEmitted: false,
+//       emitClose: true,
+//       autoDestroy: true,
+//       errored: null,
+//       closed: false
 //     },
-//     {
-//       id: 2,
-//       name: "两学一做",
-//       value: 7500,
-//       iseditor: false,
+//     _events: [Object: null prototype] { error: [Function (anonymous)] },
+//     _eventsCount: 1,
+//     _maxListeners: undefined,
+//     path: 'D:\\vue\\vue-chat\\chat\\server\\public\\images\\f5418a1b5a36ac047b4cb6700',
+//     fd: 4,
+//     flags: 'w',
+//     mode: 438,
+//     start: undefined,
+//     autoClose: true,
+//     pos: undefined,
+//     bytesWritten: 5178,
+//     closed: false,
+//     [Symbol(kFs)]: {
+//       appendFile: [Function: appendFile],
+//       appendFileSync: [Function: appendFileSync],
+//       access: [Function: access],
+//       accessSync: [Function: accessSync],
+//       chown: [Function: chown],
+//       chownSync: [Function: chownSync],
+//       chmod: [Function: chmod],
+//       chmodSync: [Function: chmodSync],
+//       close: [Function: close],
+//       closeSync: [Function: closeSync],
+//       copyFile: [Function: copyFile],
+//       copyFileSync: [Function: copyFileSync],
+//       createReadStream: [Function: createReadStream],
+//       createWriteStream: [Function: createWriteStream],
+//       exists: [Function: exists],
+//       existsSync: [Function: existsSync],
+//       fchown: [Function: fchown],
+//       fchownSync: [Function: fchownSync],
+//       fchmod: [Function: fchmod],
+//       fchmodSync: [Function: fchmodSync],
+//       fdatasync: [Function: fdatasync],
+//       fdatasyncSync: [Function: fdatasyncSync],
+//       fstat: [Function: fstat],
+//       fstatSync: [Function: fstatSync],
+//       fsync: [Function: fsync],
+//       fsyncSync: [Function: fsyncSync],
+//       ftruncate: [Function: ftruncate],
+//       ftruncateSync: [Function: ftruncateSync],
+//       futimes: [Function: futimes],
+//       futimesSync: [Function: futimesSync],
+//       lchown: [Function: lchown],
+//       lchownSync: [Function: lchownSync],
+//       lchmod: undefined,
+//       lchmodSync: undefined,
+//       link: [Function: link],
+//       linkSync: [Function: linkSync],
+//       lstat: [Function: lstat],
+//       lstatSync: [Function: lstatSync],
+//       lutimes: [Function: lutimes],
+//       lutimesSync: [Function: lutimesSync],
+//       mkdir: [Function: mkdir],
+//       mkdirSync: [Function: mkdirSync],
+//       mkdtemp: [Function: mkdtemp],
+//       mkdtempSync: [Function: mkdtempSync],
+//       open: [Function: open],
+//       openSync: [Function: openSync],
+//       opendir: [Function: opendir],
+//       opendirSync: [Function: opendirSync],
+//       readdir: [Function: readdir],
+//       readdirSync: [Function: readdirSync],
+//       read: [Function: read],
+//       readSync: [Function: readSync],
+//       readv: [Function: readv],
+//       readvSync: [Function: readvSync],
+//       readFile: [Function: readFile],
+//       readFileSync: [Function: readFileSync],
+//       readlink: [Function: readlink],
+//       readlinkSync: [Function: readlinkSync],
+//       realpath: [Function],
+//       realpathSync: [Function],
+//       rename: [Function: rename],
+//       renameSync: [Function: renameSync],
+//       rm: [Function: rm],
+//       rmSync: [Function: rmSync],
+//       rmdir: [Function: rmdir],
+//       rmdirSync: [Function: rmdirSync],
+//       stat: [Function: stat],
+//       statSync: [Function: statSync],
+//       symlink: [Function: symlink],
+//       symlinkSync: [Function: symlinkSync],
+//       truncate: [Function: truncate],
+//       truncateSync: [Function: truncateSync],
+//       unwatchFile: [Function: unwatchFile],
+//       unlink: [Function: unlink],
+//       unlinkSync: [Function: unlinkSync],
+//       utimes: [Function: utimes],
+//       utimesSync: [Function: utimesSync],
+//       watch: [Function: watch],
+//       watchFile: [Function: watchFile],
+//       writeFile: [Function: writeFile],
+//       writeFileSync: [Function: writeFileSync],
+//       write: [Function: write],
+//       writeSync: [Function: writeSync],
+//       writev: [Function: writev],
+//       writevSync: [Function: writevSync],
+//       Dir: [class Dir],
+//       Dirent: [class Dirent],
+//       Stats: [Function: Stats],
+//       ReadStream: [Getter/Setter],
+//       WriteStream: [Getter/Setter],
+//       FileReadStream: [Getter/Setter],
+//       FileWriteStream: [Getter/Setter],
+//       _toUnixTimestamp: [Function: toUnixTimestamp],
+//       F_OK: 0,
+//       R_OK: 4,
+//       W_OK: 2,
+//       X_OK: 1,
+//       constants: [Object: null prototype],
+//       promises: [Getter]
 //     },
-//     {
-//       id: 3,
-//       name: "中华民族",
-//       value: 9386,
-//       iseditor: false,
-//     },
-//     {
-//       id: 34,
-//       name: "民族复兴",
-//       value: 7500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 5,
-//       name: "社会主义制度",
-//       value: 7500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 56,
-//       name: "国防白皮书",
-//       value: 6500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 7,
-//       name: "创新",
-//       value: 6500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 8,
-//       name: "民主革命",
-//       value: 6000,
-//       iseditor: false,
-//     },
-//     {
-//       id: 9,
-//       name: "文化强国",
-//       value: 4500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 10,
-//       name: "国家主权",
-//       value: 3800,
-//       iseditor: false,
-//     },
-//     {
-//       id: 11,
-//       name: "伟大复兴",
-//       value: 3000,
-//       iseditor: false,
-//     },
-//     {
-//       id: 12,
-//       name: "领土完整",
-//       value: 2500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 13,
-//       name: "安全",
-//       value: 1800,
-//       iseditor: false,
-//     },
-//     {
-//       id: 14,
-//       name: "从严治党",
-//       value: 1700,
-//       iseditor: false,
-//     },
-//     {
-//       id: 15,
-//       name: "国防动员",
-//       value: 1600,
-//       iseditor: false,
-//     },
-//     {
-//       id: 16,
-//       name: "现代化经济体系",
-//       value: 1500,
-//       iseditor: false,
-//     },
-//     {
-//       id: 17,
-//       name: "信息化战争",
-//       value: 1200,
-//       iseditor: false,
-//     },
-//     {
-//       id: 18,
-//       name: "教育",
-//       value: 1000,
-//       iseditor: false,
-//     },
-//   ];
-//   User.findOneAndUpdate({ name: "firo" }, {tags:worddata},(err,result)=>{
-//     if(err){
-//       console.log(err);
-//     }
-//     console.log('成功');
-//     res.send("成功")
-//   });
-// };
+//     [Symbol(kCapture)]: false,
+//     [Symbol(kIsPerformingIO)]: false
+//   },
+//   hash: null,
+//   [Symbol(kCapture)]: false
+// }

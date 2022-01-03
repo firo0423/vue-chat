@@ -10,7 +10,12 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item
-              ><router-link :to="{name:'uploadUserData'}">修改信息</router-link>
+              ><router-link :to="{ name: 'uploadUserData' }"
+                >修改信息</router-link
+              >
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="userLogout">
+              <span>退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -183,6 +188,11 @@ export default {
   },
   methods: {
     // 异步获取服务器的用户标签
+    userLogout() {
+      localStorage.removeItem("userData");
+      localStorage.removeItem("tokenStr");
+      this.$router.replace({ name: "login" });
+    },
     async getUserTags() {
       let res = await this.getRequest(this.HOST + "/user/getUserTags").then(
         (res) => {
@@ -318,9 +328,6 @@ a {
   color: rgba(0, 0, 0, 0.479);
   cursor: pointer;
   transition: all 0.2s;
-}
-.topOptions i:hover {
-  color: rgb(0, 0, 0);
 }
 
 /* 主页的下拉菜单样式 */
