@@ -5,41 +5,30 @@
         ><i class="el-icon-arrow-left"></i
       ></router-link>
     </span>
-    <el-upload
-      class="avatar-uploader"
-      :action="action"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-    >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+    <ele-upload-image
+      action="http://localhost:4000/user/updateUserImg"
+      v-model="image"
+      :responseFn="handleResponse"
+    ></ele-upload-image>
   </div>
 </template>
 
 <script>
+import EleUploadImage from "vue-ele-upload-image";
 export default {
+  components: { EleUploadImage },
   data() {
     return {
-      imageUrl: "",
-      action: "http://localhost:4000" + "/user/updateUserImg",
+      image: "",
+      action: "http://localhost:4000/user/updateUserImg",
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/png" || "image/jpg" || "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG/PNG/JPEG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
+    handleResponse(response, file, fileList) {
+      console.log(response);
+      // 根据响应结果, 设置 URL
+      // return 'http://localhost:4000/images/1641217869972.jpg'
+      return "http://localhost:4000" + response[0].path.replace(/public/i,"");
     },
   },
 };
