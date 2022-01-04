@@ -29,8 +29,12 @@ router.beforeEach((to, from, next) => {
       next({ name: "home" });
     }
     // initMenu(router,store);
+    // 从内存中拿到用户数据
+    if (window.localStorage.getItem("userData")) {
+      store.commit("initUserDatafromLocal");
+    }
     //判断用户信息是否存在
-    if (!window.localStorage.getItem("user")) {
+    else if (!window.localStorage.getItem("userData")) {
       return getRequest("http://localhost:4000/user/getUserData").then(
         (res) => {
           if (res) {

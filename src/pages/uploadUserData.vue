@@ -5,7 +5,7 @@
         ><i class="el-icon-arrow-left"></i
       ></router-link>
     </span>
-    <!--  -->
+    <!-- 图片上传模块 -->
     <ele-upload-image
       :crop='true'
       action="http://localhost:4000/user/updateUserImg"
