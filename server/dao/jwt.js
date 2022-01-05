@@ -5,10 +5,10 @@ const secretKey = "nibaba..";
 const refreshKey = "niyeye..";
 
 //登录时：核对用户名和密码成功后，应用将用户的id（图中的username）作为JWT Payload的一个属性
-exports.setAccessToken = (username) => {
+exports.setAccessToken = (user_id) => {
   const token = jwt.sign(
     {
-      username: username,
+      user_id: user_id,
     },
     secretKey,
     {
@@ -18,10 +18,10 @@ exports.setAccessToken = (username) => {
   return token;
 };
 // 设置刷新token
-exports.setRefreshToken = (username) => {
+exports.setRefreshToken = (user_id) => {
   const token = jwt.sign(
     {
-      username: username,
+      user_id: user_id,
     },
     refreshKey,
     {
@@ -60,8 +60,8 @@ exports.checkToken = (req, res, next) => {
             }
             // 刷新令牌验证成功
             else {
-              let accessToken = setToken.setAccessToken(decode.username);
-              let refreshToken = setToken.setRefreshToken(decode.username);
+              let accessToken = setToken.setAccessToken(decode.user_id);
+              let refreshToken = setToken.setRefreshToken(decode.user_id);
               res.status(200).send({
                 code: 201,
                 message: "刷新token成功",

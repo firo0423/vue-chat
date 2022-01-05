@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     password: {type:String},                                  //密码
     email: {type:String},                                     //邮箱注册用
     tags: {type:Array,default:['test']},                      //个人标签
-    sex: {type:String, default:"asexual"},                    //性别
+    sex: {type:String, default:"保密"},                       //性别
     brith: {type:Date},                                       //出生日期
     explain: {type:String},                                   //自我简介
     imgurl: {type:String, default:"user.png"},                //用户头像

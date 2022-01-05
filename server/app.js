@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 // 将请求响应设置content-type设置为application/json
 // 利用 Express 托管静态文件
 app.use(express.static('public'))
-app.use("/*", function (req, res, next) {
+app.use("*", function (req, res, next) {
   // 设置请求头为允许跨域
   res.header("Access-Control-Allow-Origin", "*");
   // 设置服务器支持的所有头信息字段

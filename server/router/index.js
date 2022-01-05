@@ -9,9 +9,9 @@ module.exports = function(app){
     app.post('/api/register',dbserver.buildUser)
 
     app.post('/user/updateUserTags',jwt.checkToken,aboutUserData.updateUserTags)
+    app.post('/user/updateUserData',jwt.checkToken,aboutUserData.updateUserData)
     app.get('/user/getUserData',jwt.checkToken,aboutUserData.getUserData)
     app.get('/user/getUserTags',jwt.checkToken,aboutUserData.getUserTags)
-
-
+    
     // app.get('/test',aboutUserData.test)
 }   

@@ -10,9 +10,10 @@ async function toDB(req) {
   const secretKey = "nibaba..";
   const token = (req.headers.authorization || "").split(" ")[1];
   const jwtResult = jwtAPI.verify(token, secretKey);
-  const result = await User.findOne({ name: jwtResult.username }).catch();
+  const result = await User.findOne({ _id: jwtResult.user_id }).catch();
   return result;
 }
+
 
 exports.getUserData = async (req, res) => {
   let result = await toDB(req);
@@ -56,7 +57,7 @@ exports.updateUserTags = (req, res) => {
   const token = (req.headers.authorization || "").split(" ")[1];
   const jwtResult = jwtAPI.verify(token, secretKey);
   User.findOneAndUpdate(
-    { name: jwtResult.username },
+    { _id: jwtResult.user_id },
     { tags: req.body },
     {},
     // data返回修改前的数据信息
@@ -71,6 +72,31 @@ exports.updateUserTags = (req, res) => {
   res.send({
     code: 200,
     message: "修改标签成功",
+  });
+};
+
+// 更新用户的基本信息
+exports.updateUserData = (req, res) => {
+  const secretKey = "nibaba..";
+  const token = (req.headers.authorization || "").split(" ")[1];
+  const jwtResult = jwtAPI.verify(token, secretKey);
+  console.log(req.body);
+
+  User.findOneAndUpdate(
+    { _id: jwtResult.user._id },
+    req.body,
+    {},
+    // data返回修改前的数据信息
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(data);
+    }
+  );
+  res.send({
+    code: 200
   });
 };
 

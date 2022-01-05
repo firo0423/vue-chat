@@ -46,6 +46,7 @@ export default new Vuex.Store({
         ],
       },
     ],
+    // 0代表去主页 后面添加多人聊天后就要修改
     currentSessionId: 0,
   },
   mutations: {
