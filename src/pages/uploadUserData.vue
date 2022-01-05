@@ -56,7 +56,7 @@ export default {
         sex: this.$store.state.userData.sex,
         explain: this.$store.state.userData.explain || '',
       },
-      image: "",
+      image: this.$store.state.userData.imgurl,
       action: "http://localhost:4000/user/updateUserImg",
     };
   },
@@ -72,6 +72,8 @@ export default {
       let data = { ...this.form, imgurl: this.image };
       this.postRequest(this.HOST + "/user/updateUserData", data)
       .then(()=>{
+        localStorage.removeItem('userData')
+        this.$router.go(0)
         console.log('完成提交');
       })
 

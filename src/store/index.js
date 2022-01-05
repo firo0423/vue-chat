@@ -51,7 +51,7 @@ export default new Vuex.Store({
   },
   mutations: {
     // 内存没有用户数据的时候去拿
-    initUser(state, data) {
+    initUserDataFromRes(state, data) {
       state.userData = data;
     },
     // 从内存拿

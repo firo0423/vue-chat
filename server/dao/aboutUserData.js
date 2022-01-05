@@ -81,9 +81,9 @@ exports.updateUserData = (req, res) => {
   const token = (req.headers.authorization || "").split(" ")[1];
   const jwtResult = jwtAPI.verify(token, secretKey);
   console.log(req.body);
-
+  console.log(jwtResult);
   User.findOneAndUpdate(
-    { _id: jwtResult.user._id },
+    { _id: jwtResult.user_id },
     req.body,
     {},
     // data返回修改前的数据信息
