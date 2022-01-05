@@ -145,3 +145,13 @@ export default {
   display: block;
 }
 </style>
+
+// 遇到的问题
+// 1. 业务逻辑：表格里的数据来自于Vuex的数据，vuex的数据来自于本地数据，本地数据没有的时候来自于数据库
+// 更新的时候，数据完成更改点击提交按钮，删除本地文件=》更新页面触发路由守卫=》从数据库拿到用户数据=》储存本地=》
+// 触发vuex的初始化数据方法----结束
+// 问题：当删除本地数据后，刷新页面，还是修改信息页面，点击返回首页，内存中的数据并没有初始化到vuex中
+// 当时是 currentuserData: JSON.parse(window.localStorage.getItem("userData")) 在state中
+// 然后在 mutation中再触发方法
+// 猜测：当刷新页面以后，数据虽然储存在本地了，但是在vuex 中的 初始化方法并没有拿到用户数据，可能是vuex中的数据初始化在路由守卫之前触发
+// 解决：在路由守卫处 直接触发 JSON.parse(window.localStorage.getItem("userData")) 再传递给 初始化方法
