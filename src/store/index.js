@@ -5,8 +5,7 @@ Vue.use(Vuex);
 const now = new Date();
 export default new Vuex.Store({
   state: {
-    userData: "", 
-    currentuserData: JSON.parse(window.localStorage.getItem("userData")),
+    userData: "",
     sessions: [
       {
         id: 1,
@@ -50,13 +49,8 @@ export default new Vuex.Store({
     currentSessionId: 0,
   },
   mutations: {
-    // 内存没有用户数据的时候去拿
-    initUserDataFromRes(state, data) {
+    initUserData(state, data) {
       state.userData = data;
-    },
-    // 从内存拿
-    initUserDatafromLocal(state, data){
-      state.userData = state.currentuserData
     },
 
     changeCurrentSessionId(state, id) {
@@ -70,8 +64,6 @@ export default new Vuex.Store({
         self: true,
       });
     },
-    
-    
   },
   // getters: {
   //   worddata_get: (state) => state.worddata,

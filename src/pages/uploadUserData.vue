@@ -36,7 +36,7 @@
     <ele-upload-image
       :crop="true"
       action="http://localhost:4000/user/updateUserImg"
-      v-model="image"
+      v-model="imgurl"
       :responseFn="handleResponse"
     ></ele-upload-image>
   </div>
@@ -56,7 +56,7 @@ export default {
         sex: this.$store.state.userData.sex,
         explain: this.$store.state.userData.explain || '',
       },
-      image: this.$store.state.userData.imgurl,
+      imgurl: this.$store.state.userData.imgurl,
       action: "http://localhost:4000/user/updateUserImg",
     };
   },
@@ -69,11 +69,11 @@ export default {
     },
     // 提交更改到服务器
     onSubmit() {
-      let data = { ...this.form, imgurl: this.image };
+      let data = { ...this.form, imgurl: this.imgurl };
       this.postRequest(this.HOST + "/user/updateUserData", data)
       .then(()=>{
         localStorage.removeItem('userData')
-        this.$router.go(0)
+        this.$router.go(0) 
         console.log('完成提交');
       })
 
